@@ -1,0 +1,16 @@
+name: Test font rendering on MacOS
+
+on: [push]
+jobs:
+  font_rendering_macos:
+    runs-on: ${{matrix.os}}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13]  # [macos-14, macos-15]
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Homebrew/actions/setup-homebrew@master
+      - run: brew install visual-studio-code
+      - run: code --version
