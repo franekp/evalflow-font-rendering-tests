@@ -7,10 +7,45 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13]  # [macos-14, macos-15]
+        os: [macos-latest]  # [macos-13, macos-14, macos-15]
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v3
-      - uses: Homebrew/actions/setup-homebrew@master
-      - run: brew install visual-studio-code
-      - run: code --version
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Appium
+        run: |
+          npm install -g appium
+          appium driver install mac2
+
+      - name: Install Appium python client
+        run: |
+          python3 -m venv font_rendering_venv
+          source font_rendering_venv/bin/activate
+          python3 -m pip install Appium-Python-Client
+
+      - name: Install VS Code
+        run: brew install visual-studio-code
+
+      - name: Check VS Code version
+        run: |
+          file /Applications/Visual Studio Code.app
+          which code
+          code --version
+
+      - name: Test font rendering in VS Code on MacOS
+        run: |
+          appium --address 127.0.0.1 --port 4723 --log-level info &
+          sleep 15
+          source font_rendering_venv/bin/activate
+          ./font_rendering_macos.py
+          #code
+          #sleep 10
+          #screencapture -R 0,0,800,600 vscode.png
+          #killall "Visual Studio Code"
+
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscode_screenshot.png
+          path: ./vscode_screenshot.png
