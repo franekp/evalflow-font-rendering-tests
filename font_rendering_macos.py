@@ -8,8 +8,9 @@ import time
 caps = {
     "platformName": "mac",
     "appium:automationName": "Mac2",
-    "appium:bundleId": "com.microsoft.VSCode",
-    "appium:appPath": "/Applications/Visual Studio Code.app"  # Path to VS Code
+    "appium:bundleId": "com.microsoft.VSCode",  # this is required, otherwise it won't launch the apps
+    "appium:appPath": "/Applications/Visual Studio Code.app",
+    "appium:arguments": ["vscode-extension"]
 }
 
 # Connect to the Appium server

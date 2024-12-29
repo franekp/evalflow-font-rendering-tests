@@ -1,0 +1,36 @@
+{
+  "name": "evalflowfontrenderingtests",
+  "displayName": "EvalflowFontRenderingTests",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:python",
+    "onLanguage:javascript"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [{
+      "command": "evalflowfontrenderingtests.helloWorld",
+      "title": "Hello World"
+    }]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "yarn run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.96.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "eslint": "^9.16.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}

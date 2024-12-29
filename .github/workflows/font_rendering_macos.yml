@@ -39,10 +39,6 @@ jobs:
           sleep 15
           source font_rendering_venv/bin/activate
           ./font_rendering_macos.py
-          #code
-          #sleep 10
-          #screencapture -R 0,0,800,600 vscode.png
-          #killall "Visual Studio Code"
 
       - name: Upload screenshot
         uses: actions/upload-artifact@v4
