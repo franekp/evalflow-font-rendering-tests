@@ -3,7 +3,7 @@ name: Test font rendering on MacOS
 on: [push]
 jobs:
   font_rendering_macos:
-    runs-on: ${{matrix.os}}-latest
+    runs-on: ${{matrix.os}}
     strategy:
       fail-fast: false
       matrix:
