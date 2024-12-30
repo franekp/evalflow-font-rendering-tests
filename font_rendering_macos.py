@@ -58,7 +58,7 @@ def send_keys(keys):
 
 send_keys([{'key': 'p', 'modifierFlags': XCUIKeyModifierCommand}] + list('example.py'))
 time.sleep(0.5)
-send_keys(['XCUIKeyboardKeyEnter'])
+send_keys(['XCUIKeyboardKeyReturn'])
 time.sleep(2)
 
 # Take a screenshot of the VS Code window
