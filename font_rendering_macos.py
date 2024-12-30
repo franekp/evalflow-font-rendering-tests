@@ -53,8 +53,15 @@ def send_keys(keys):
         })
         time.sleep(0.01)
 
-#send_keys([{'key': 'XCUIKeyboardKeyF5', 'modifierFlags': XCUIKeyModifierCommand}])
-#time.sleep(5)  # wait for the extension host to start, comparable to what launching vscode takes
+send_keys([{'key': 'w', 'modifierFlags': XCUIKeyModifierCommand}])
+time.sleep(0.5)
+
+send_keys([{'key': 'p', 'modifierFlags': XCUIKeyModifierCommand}] + list('launch.json'))
+time.sleep(0.5)
+send_keys(['XCUIKeyboardKeyReturn'])
+
+send_keys([{'key': 'XCUIKeyboardKeyF5', 'modifierFlags': XCUIKeyModifierFunction}])
+time.sleep(5)  # wait for the extension host to start, comparable to what launching vscode takes
 
 send_keys([{'key': 'p', 'modifierFlags': XCUIKeyModifierCommand}] + list('example.py'))
 time.sleep(0.5)
