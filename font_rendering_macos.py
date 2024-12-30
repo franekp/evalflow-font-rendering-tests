@@ -81,6 +81,11 @@ time.sleep(0.5)
 send_keys(['XCUIKeyboardKeyReturn'])
 time.sleep(2)
 
+driver.execute_script('macos: hover', {
+    'x': 1020, 'y': 340,
+})
+time.sleep(2)
+
 # Take a screenshot of the VS Code window
 screenshot_path = "./vscode_screenshot.png"
 driver.save_screenshot(screenshot_path)
