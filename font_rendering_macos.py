@@ -63,6 +63,10 @@ send_keys(['XCUIKeyboardKeyReturn'])
 send_keys([{'key': 'XCUIKeyboardKeyF5', 'modifierFlags': XCUIKeyModifierFunction}])
 time.sleep(5)  # wait for the extension host to start, comparable to what launching vscode takes
 
+driver.execute_script('macos: click', {
+    'x': 638, 'y': 495,
+})
+
 send_keys([{'key': 'p', 'modifierFlags': XCUIKeyModifierCommand}] + list('example.py'))
 time.sleep(0.5)
 send_keys(['XCUIKeyboardKeyReturn'])
