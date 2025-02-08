@@ -1,12 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
+const effects = require('./unicode_effects.js');
 
+const testData = require('./test_data.js');
 
-function initHover(context) {
-    vscode.languages.registerHoverProvider('python', {
-        provideHover(document, position, token) {
-            let md = new vscode.MarkdownString(`
+const objectReprHovercard = `
 <table><tr><td>
 <span style="color:#90dcfe;">shop.get().inventory</span> &nbsp; = &nbsp; <a href="#"><span style="color:#e2bd6d;">I͟n͟v͟e͟n͟t͟o͟r͟y₃</span></a>
 </td><td> &nbsp;&nbsp; <a href="#"><span style="color:#585858;"> i͟n͟v͟e͟n͟t͟o͟r͟y͟.͟p͟y͟:͟3͟8 </span></a></td></tr>
@@ -29,7 +28,33 @@ function initHover(context) {
 &nbsp;&nbsp; <a href="#"><span style="color:#585858;"> i͟n͟v͟e͟n͟t͟o͟r͟y͟.͟p͟y͟:͟3͟8 </span></a><br />
 &nbsp;&nbsp; <a href="#"><span style="color:#585858;"> i͟n͟v͟e͟n͟t͟o͟r͟y͟.͟p͟y͟:͟3͟8 </span></a><br />
 </td></tr></table>
-            `);
+`;
+
+const hovers = [];
+
+function chunkArray(array, chunkSize) {
+    return Array.from(
+        { length: Math.ceil(array.length / chunkSize) },
+        (_, index) => array.slice(index * chunkSize, (index + 1) * chunkSize)
+    );
+}
+
+function initHover(context) {
+    for (const k of Object.keys(testData)) {
+        if (k != 'codelenses') {
+            const md = chunkArray(testData[k], 10).map(
+                chunk => chunk.map(x =>
+                    `&nbsp;&nbsp; <a href="#"><span style="color:#e2bd6d;"> ${ effects.renderUnderline(x).replaceAll('<', '').replaceAll('>', '') } </span></a>`
+                ).join('')
+            ).join('<br />\n');
+            hovers.push(md);
+        }
+    }
+    vscode.languages.registerHoverProvider('python', {
+        _count: 0,
+        provideHover(document, position, token) {
+            const md = new vscode.MarkdownString(hovers[this._count % hovers.length]);
+            this._count++;
             md.supportHtml = true;
             md.isTrusted = true;
             return new vscode.Hover(md);

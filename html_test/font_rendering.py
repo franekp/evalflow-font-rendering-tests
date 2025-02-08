@@ -4,6 +4,8 @@ import random
 import string
 import json
 
+from os.path import abspath, dirname
+
 random.seed(5325423)
 
 ch = random.choice
@@ -35,6 +37,8 @@ RAW_BRACKETS = [
 ]
 
 CODE_LENSES = [
+    '',
+
     'Start Evalflow (ctrl+alt+enter)',
 
     'Context: ⦓⦔ Symbolic exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
@@ -99,6 +103,19 @@ data['strings'] = [random_string(5, 6, 7, 8, 9, 10, 11, 12) for _ in range(600)]
 data['brackets'] = [random_bracket() for _ in range(200)]
 data['codelenses'] = CODE_LENSES
 
-data_str = 'window.renderingTests = ' + json.dumps(data) + ';'
-with open('font_rendering.js', 'w') as f:
-    f.write(data_str)
+THIS_DIR = dirname(abspath(__file__))
+
+with open(f'{THIS_DIR}/font_rendering.js', 'w') as f:
+    f.write('window.renderingTests = ' + json.dumps(data) + ';')
+
+data = {}
+data['values1'] = [random_value_repr() for _ in range(800)]
+
+data['strings1'] = [random_string(5, 6, 7, 8, 9, 10, 11, 12) for _ in range(800)]
+
+data['brackets1'] = [random_bracket() for _ in range(300)]
+
+data['codelenses'] = CODE_LENSES
+
+with open(f'{THIS_DIR}/../vscode-extension/test_data.js', 'w') as f:
+    f.write('module.exports = ' + json.dumps(data) + ';')

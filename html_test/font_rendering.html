@@ -203,6 +203,24 @@
             };
             return renderers[fontName](text);
         }
+
+        function renderItalic(fontName, text) {
+            const lowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+            const uppercase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+            const italicLowercase = ['𝘢', '𝘣', '𝘤', '𝘥', '𝘦', '𝘧', '𝘨', '𝘩', '𝘪', '𝘫', '𝘬', '𝘭', '𝘮', '𝘯', '𝘰', '𝘱', '𝘲', '𝘳', '𝘴', '𝘵', '𝘶', '𝘷', '𝘸', '𝘹', '𝘺', '𝘻'];
+            const italicUppercase = ['𝘈', '𝘉', '𝘊', '𝘋', '𝘌', '𝘍', '𝘎', '𝘏', '𝘐', '𝘑', '𝘒', '𝘓', '𝘔', '𝘕', '𝘖', '𝘗', '𝘘', '𝘙', '𝘚', '𝘛', '𝘜', '𝘝', '𝘞', '𝘟', '𝘠', '𝘡'];
+            
+            return text.split('').map(char => {
+                let index = lowercase.indexOf(char);
+                if (index !== -1) return italicLowercase[index];
+                
+                index = uppercase.indexOf(char);
+                if (index !== -1) return italicUppercase[index];
+                
+                return char; // Return unchanged if not a letter
+            }).join('');
+        }
+
         function setFont(fontName) {
             document.querySelector('#main').style.fontFamily = fontName;
             for (const preset of ['codelenses', 'values', 'strings', 'brackets']) {
@@ -211,6 +229,8 @@
                 for (const text of window.renderingTests[preset]) {
                     const elem = document.createElement('div');
                     elem.className = 'test-case';
+                    // uncomment to test italicizing text
+                    // const content = preset == 'codelenses' ? text : renderItalic(fontName, text);
                     const content = preset == 'codelenses' ? text : renderUnderline(fontName, text);
                     elem.appendChild(document.createTextNode(content));
                     box.appendChild(elem);
