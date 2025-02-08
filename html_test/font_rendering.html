@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Font rendering tests</title>
+    <style type="text/css">
+        body {
+            background-color: #1e1e1e;
+            color: #e2bd6d;
+        }
+        .select-font {
+            padding: 5px;
+        }
+        .select-font button {
+            margin: 5px;
+            padding: 5px;
+            display: inline-block;
+        }
+        #main > div {
+            padding: 20px;
+        }
+        #main .test-case {
+            background-color: #252526;
+            padding: 3px 12px;
+            margin: 3px;
+            display: inline-block;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="select-font">
+        <button onclick="setFont('SF Pro')">San Francisco Pro</button>
+        <button onclick="setFont('Segoe UI Variable')">Segoe UI</button>
+        <button onclick="setFont('Ubuntu')">Ubuntu</button>
+    </div>
+    <div id="main">
+        <div id="values"></div>
+        <div id="strings"></div>
+        <div id="brackets"></div>
+    </div>
+    <script src="font_rendering.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        function renderUnderlineMacOS(text) {
+            const lowline = '\u0332';
+            const macron = '\u035F';
+            return text.split('').map(char => char + macron).join('');
+        }
+
+        function renderUnderlineWindows(text) {
+            const zero = '\u200C';  // U+200C ZERO WIDTH NON-JOINER
+
+            const lowline1 = '\u0332';
+            const macron1 = '\u035F';
+            const lowline2 = '\u0332\u0332';
+            const macron2 = '\u035F\u035F';
+            const lowline3 = '\u0332\u0332\u0332';
+            const macron3 = '\u035F\u035F\u035F';
+            const lowline4 = '\u0332\u0332\u0332\u0332';
+            const macron4 = '\u035F\u035F\u035F\u035F';
+            const macron5 = '\u035F\u035F\u035F\u035F\u035F';
+
+            const arr = text.split('')
+
+            const decide = (char, i) => {
+                if (i + 1 >= arr.length) {
+                    if (char.match(/[a-z]/i) && char != 'g' && char != 'j') {
+                        return char + lowline1;
+                    }
+                    return char;
+                }
+                if ('₀₁₂₃₄₅₆₇₈₉'.includes(char)) {
+                    return char;
+                }
+                if ('₀₁₂₃₄₅₆₇₈₉'.includes(arr[i + 1])) {
+                    if ('jg'.includes(char)) {
+                        return char;
+                    }
+                    if (char.match(/[a-z]/i)) {
+                        return char + zero + lowline1;
+                    } else {
+                        return char;
+                    }
+                }
+                if (char == '‥') {
+                    return zero + macron5 + char + macron1;
+                }
+                if (char.match(/[A-Zwm]/) || char == '‥') {
+                    return char + zero + lowline1 + macron5;
+                }
+                return char + zero + macron3;
+            }
+
+            return zero + lowline1 + text.split('').map(decide).join('');
+            return zero + macron3 + text.split('').map((char, i) => i + 1 < len ? char + zero + macron3 : char).join('');
+        }
+
+        function renderUnderlineLinux(text) {
+            const zero = '\u200C';  // U+200C ZERO WIDTH NON-JOINER
+            const macron3 = '\u035F\u035F\u035F';
+            const len = text.split('').length;
+            return zero + macron3 + text.split('').map((char, i) => i + 1 < len ? char + zero + macron3 : char).join('');
+        }
+
+        function renderUnderlineLinuxAlternative(text) {
+            // We keep it as a backup, because it works quite well and doesn't rely
+            // on inserting zero-width characters. Although, version that inserts
+            // "U+200C ZERO WIDTH NON-JOINER" is visibly better.
+            const lowline1 = '\u0332';
+            const macron1 = '\u035F';
+            const lowline2 = '\u0332\u0332';
+            const macron2 = '\u035F\u035F';
+            const lowline3 = '\u0332\u0332\u0332';
+            const macron3 = '\u035F\u035F\u035F';
+            const lowline4 = '\u0332\u0332\u0332\u0332';
+            const macron4 = '\u035F\u035F\u035F\u035F';
+
+            const transform = char => {
+                if ('₀₁₂₃₄₅₆₇₈₉'.includes(char)) {
+                    return char;
+                }
+                if (char == '‥') {
+                    return char + macron1
+                }
+                if ('jgqy⟨‥⟩'.includes(char)) {
+                    return char
+                }
+                return char + lowline3
+            };
+
+            const as = [''].concat(text.split(''));
+            const bs = text.split('').concat(['']);
+
+            "U̲t̲v̲z̲G̲q͟x̲₈₅"
+            "c̲c̲n̲͟͟͟j/̲z̲h̲.̲l̲͟q̲"
+
+            "J͟͟y͟͟qu̲͟R̲͟c̲͟₈₈"
+
+            const decide = (a, b) => {
+                if (a == '') {
+                    if (b == '⟨') return '';
+                    if ('0123456789'.includes(b)) return lowline1;
+                }
+                if (b == '') {
+                    if ('₀₁₂₃₄₅₆₇₈₉'.includes(a)) return '';
+                    if ('jgqQpy⟨‥⟩'.includes(a)) return '';
+                }
+
+                if ('jgqQpy⟨‥⟩'.includes(a) && 'jgqQpy⟨‥⟩'.includes(b)) {
+                    return '';
+                }
+                if ('jgqQpy⟨‥⟩'.includes(b)) {
+                    return lowline1 + macron3;
+                }
+                if ('jgqQpy⟨‥⟩'.includes(a)) {
+                    return '';
+                }
+
+                if (a == '⟨') return macron1;
+                if ('₀₁₂₃₄₅₆₇₈₉'.includes(a)) return '';
+
+                if (a == '') return '';
+                if (b == '') return lowline1;
+
+                return lowline1 + macron1;
+            };
+
+            const separators = as.map((a, i) => decide(a, bs[i]));
+            const chunks = as.map((a, i) => a + separators[i]);
+            return chunks.join('');
+        }
+
+        function renderUnderline(fontName, text) {
+            const renderers = {
+                'SF Pro': renderUnderlineMacOS,
+                'Segoe UI Variable': renderUnderlineWindows,
+                'Ubuntu': renderUnderlineLinux,
+            };
+            return renderers[fontName](text);
+        }
+        function setFont(fontName) {
+            document.querySelector('#main').style.fontFamily = fontName;
+            for (const preset of ['values', 'strings', 'brackets']) {
+                const box = document.getElementById(preset);
+                box.innerHTML = '';
+                for (const text of window.renderingTests[preset]) {
+                    const elem = document.createElement('div');
+                    elem.className = 'test-case';
+                    elem.appendChild(document.createTextNode(renderUnderline(fontName, text)));
+                    box.appendChild(elem);
+                }
+            }
+        }
+    </script>
+  </body>
+</html>
