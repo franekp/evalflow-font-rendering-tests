@@ -27,6 +27,10 @@
             margin: 3px;
             display: inline-block;
         }
+        #main #codelenses .test-case {
+            display: block;
+            margin: 10px;
+        }
     </style>
   </head>
   <body>
@@ -36,6 +40,7 @@
         <button onclick="setFont('Ubuntu')">Ubuntu</button>
     </div>
     <div id="main">
+        <div id="codelenses"></div>
         <div id="values"></div>
         <div id="strings"></div>
         <div id="brackets"></div>
@@ -45,8 +50,31 @@
 
         function renderUnderlineMacOS(text) {
             const lowline = '\u0332';
+            const lowline2 = '\u0332\u0332';
+            const lowline3 = '\u0332\u0332';
             const macron = '\u035F';
-            return text.split('').map(char => char + macron).join('');
+            const lowMacron = '\u02CD';
+            const singleMacron = '\u0331';
+            const singleMacron3 = '\u0331\u0331\u0331';
+            const zero = '\u200C';  // U+200C ZERO WIDTH NON-JOINER
+            const macron3 = '\u035F\u035F\u035F';
+
+            const len = text.split('').length;
+
+            const decide = (char, i) => {
+                if (i + 1 >= len) {
+                    if ('⟨‥⟩'.includes(char) || char == '‥') {
+                        return char + zero + lowline2;
+                    }
+                    return char + lowline2;
+                }
+                if ('⟨‥⟩'.includes(char) || char == '‥') {
+                    return char + zero + macron3;
+                }
+                return char + macron3;
+            }
+
+            return zero + macron + text.split('').map(decide).join('');
         }
 
         function renderUnderlineWindows(text) {
@@ -177,13 +205,14 @@
         }
         function setFont(fontName) {
             document.querySelector('#main').style.fontFamily = fontName;
-            for (const preset of ['values', 'strings', 'brackets']) {
+            for (const preset of ['codelenses', 'values', 'strings', 'brackets']) {
                 const box = document.getElementById(preset);
                 box.innerHTML = '';
                 for (const text of window.renderingTests[preset]) {
                     const elem = document.createElement('div');
                     elem.className = 'test-case';
-                    elem.appendChild(document.createTextNode(renderUnderline(fontName, text)));
+                    const content = preset == 'codelenses' ? text : renderUnderline(fontName, text);
+                    elem.appendChild(document.createTextNode(content));
                     box.appendChild(elem);
                 }
             }
