@@ -33,7 +33,57 @@ RAW_BRACKETS = [
     '⦍', '⦎', '⦏', '⦐', '⦑', '⦒', '⦓', '⦔', '⦕', '⦖', '⦗', '⦘', '⧘', '⧙', '⧚', '⧛', '⧼', '⧽', '⸦', '⸧', '⸨', '⸩', '〈', '〉', '《', '》',
     '【', '】', '〔', '〕', '〖', '〗', '〘', '〙', '〚', '〛', '﹙', '﹚', '﹛', '﹜', '﹝', '﹞', '（', '）', '［', '］', '｛', '｝', '｟', '｠', '｢', '｣',
 ]
-ICONS = '⸦⸧ ⟅⟆ ⦓⦔ ⦕⦖'
+
+'Start Evalflow (ctrl+alt+enter)'
+
+'Context: ⦓⦔ Symbolic exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)'
+'Context: ⦓⦔🖋 Custom exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)'
+'Context: ⦖⦕ AI-generated exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)'
+'Context: ⦖⦕🖋 Edited AI-generated exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)'
+
+'Exec root: ⦓⦔ Symbolic | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)'
+'Exec root: ⦓⦔🖋 Custom | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)'
+'Exec root: ⦖⦕ AI-generated | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)'
+'Exec root: ⦖⦕🖋 Edited AI-generated | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)'
+
+# alternatives / fallbacks for close:
+'⛝ (ctrl+esc)'
+'⛝ Close'
+'🗙 Close'
+'🗙 close'
+
+# alternatives / fallbacks for custom exec root:
+'context: ⦓✶⦔ custom exec root'
+'context: ⦓⦔🖋 custom exec root'
+'context: ⦓⦔🖊 custom exec root'
+'context: ⦓⦔🖉 custom exec root'
+'context: ⦓⦔🛠 custom exec root'
+'context: ⦓⦔⚒ custom exec root'
+'context: ✎⦓⦔ custom exec root'
+# alternatives / fallbacks for change ctx:
+'📌 change ctx (ctrl+alt+c)'
+'🛠 change ctx (ctrl+alt+c)'
+'🖋 change ctx (ctrl+alt+c)'
+'⯮ change ctx (ctrl+alt+c)'
+'➤ change ctx (ctrl+alt+c)'
+#alternatives / fallbacks for ai-generated exec root
+'context: ⦖⦕ ai-generated exec root'
+'context: ⟅✶⟆ ai-generated exec root'
+'context: ⦓✶⦔ ai-generated exec root'
+'context:｟✶｠ai-generated exec root'
+'context:〈✶〉ai-generated exec root'
+'context: ⧼✶⧽ ai-generated exec root'
+'context: ⧼⧼✶⧽ ai-generated exec root'
+'context: ｢✶｣ ai-generated exec root'
+'context: ⸦⧼✶ ai-generated exec root'
+'context: ⸦⧼⧼✶ ai-generated exec root'
+'context: ⧽✶⧼ ai-generated exec root'
+'context: ✨ ai-generated exec root'
+'context: 🪄 ai-generated exec root'
+'context: ⦃✶⦄ ai-generated exec root'
+'context: ⦓✶ ai-generated exec root'
+'context: ⦔⦓ ai-generated exec root'
+
 BRACKETS = [RAW_BRACKETS[2*i] + '‥' + RAW_BRACKETS[2*i+1] for i in range(int(len(RAW_BRACKETS) / 2))]
 
 use_random_bracket = lambda inner: (lambda i: RAW_BRACKETS[2*i] + inner + RAW_BRACKETS[2*i+1])(ch(range(int(len(RAW_BRACKETS) / 2))))
