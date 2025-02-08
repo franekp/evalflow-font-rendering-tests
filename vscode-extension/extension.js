@@ -5,6 +5,35 @@ const effects = require('./unicode_effects.js');
 
 const testData = require('./test_data.js');
 
+class EvalflowContextCodeLensProvider {
+    provideCodeLenses(document, cancellationToken) {
+        let codeLenses = [];
+        
+        for (let i = 0; i < testData.codelenses.length && 5 * i < document.lineCount; i++) {
+            const range = new vscode.Range(5 * i, 0, 5 * i, 0);
+            const inputText = testData.codelenses[i] || "";
+            const links = inputText.split('|');
+            for (const [index, link] of links.entries()) {
+                const lens = new vscode.CodeLens(range, {
+                    title: (index != 0 ? '\u2800' : '') + link.trim() + '\u2800',
+                    command: "evalflowfontrenderingtests.helloWorld",
+                    tooltip: '<<<  ' + link.trim() + '  >>>',
+                });
+                codeLenses.push(lens);
+            }
+        }
+        return codeLenses;
+    }
+}
+
+function initCodeLens(context) {
+    const selector = { scheme: 'file', language: 'python' };
+    let provider = new EvalflowContextCodeLensProvider();
+    let providerDisposable = vscode.languages.registerCodeLensProvider(selector, provider);
+
+    context.subscriptions.push(providerDisposable);
+}
+
 const objectReprHovercard = `
 <table><tr><td>
 <span style="color:#90dcfe;">shop.get().inventory</span> &nbsp; = &nbsp; <a href="#"><span style="color:#e2bd6d;">I͟n͟v͟e͟n͟t͟o͟r͟y₃</span></a>
@@ -41,10 +70,15 @@ function chunkArray(array, chunkSize) {
 
 function initHover(context) {
     for (const k of Object.keys(testData)) {
+        const escapeForMarkdown = (unsafe) => (
+            unsafe.replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&apos;')
+                .replace(/([\\`*_{}\[\]()#+-.!])/g, '\\$1')
+        );
         if (k != 'codelenses') {
             const md = chunkArray(testData[k], 10).map(
                 chunk => chunk.map(x =>
-                    `&nbsp;&nbsp; <a href="#"><span style="color:#e2bd6d;"> ${ effects.renderUnderline(x).replaceAll('<', '').replaceAll('>', '') } </span></a>`
+                    `&nbsp;&nbsp; <a href="#"><span style="color:#e2bd6d;"> ${ escapeForMarkdown(effects.renderUnderline(x)) } </span></a>`
                 ).join('')
             ).join('<br />\n');
             hovers.push(md);
@@ -71,6 +105,7 @@ function initHover(context) {
  */
 function activate(context) {
 
+    initCodeLens(context);
     initHover(context);
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
