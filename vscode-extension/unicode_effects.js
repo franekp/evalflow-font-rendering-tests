@@ -8,6 +8,7 @@ function renderUnderlineMacOS(text) {
     const singleMacron3 = '\u0331\u0331\u0331';
     const zero = '\u200C';  // U+200C ZERO WIDTH NON-JOINER
     const macron3 = '\u035F\u035F\u035F';
+    const macron5 = '\u035F\u035F\u035F\u035F\u035F';
 
     const len = text.split('').length;
 
@@ -19,12 +20,12 @@ function renderUnderlineMacOS(text) {
             return char + lowline2;
         }
         if ('⟨‥⟩'.includes(char)) {
-            return char + zero + macron3;
+            return char + zero + macron5;
         }
-        return char + macron3;
+        return char + macron5;
     }
 
-    return zero + macron3 + text.split('').map(decide).join('');
+    return zero + macron5 + text.split('').map(decide).join('');
 }
 
 function renderUnderlineWindows(text) {
