@@ -14,8 +14,14 @@ class EvalflowContextCodeLensProvider {
             const inputText = testData.codelenses[i] || "";
             const links = inputText.split('|');
             for (const [index, link] of links.entries()) {
+                let spaces = '\u0020\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u202F\u2060\u3000';
+                spaces = spaces + spaces + spaces;
+                spaces = '\u3000\u2060';
+                let spacesBefore = '\u2060\u3000';
+                //spaces = spaces + spaces + spaces;
                 const lens = new vscode.CodeLens(range, {
-                    title: (index != 0 ? '\u2800' : '') + link.trim() + '\u2800',
+                    title: (index != 0 ? spacesBefore : '') + (index != 0 ? '' : '⇅ Change ↘ called from ✎ ❩✧❨ ✎ ❨•❩ ⸨̶●̶⸩̶ ') + link.trim() + spaces,
+                    //title: (index != 0 ? '\u2800' : '') + link.trim() + '\u2800',
                     command: "evalflowfontrenderingtests.helloWorld",
                     tooltip: '<<<  ' + link.trim() + '  >>>',
                 });
