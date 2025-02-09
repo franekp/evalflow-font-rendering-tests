@@ -37,7 +37,7 @@
     <div id="select-font">
         <button onclick="setFont('SF Pro')">San Francisco Pro</button>
         <button onclick="setFont('Segoe UI')">Segoe UI</button>
-        <button onclick="setFont('SegoeWPC')">Segoe WPC</button>
+        <button onclick="setFont('Segoe WPC')">Segoe WPC</button>
         <button onclick="setFont('Ubuntu')">Ubuntu</button>
     </div>
     <div id="main">
@@ -79,51 +79,22 @@
         }
 
         function renderUnderlineWindows(text) {
-            const zero = '\u200C';  // U+200C ZERO WIDTH NON-JOINER
-
-            const lowline1 = '\u0332';
+            const hair = '\u200A';
             const macron1 = '\u035F';
-            const lowline2 = '\u0332\u0332';
-            const macron2 = '\u035F\u035F';
-            const lowline3 = '\u0332\u0332\u0332';
-            const macron3 = '\u035F\u035F\u035F';
-            const lowline4 = '\u0332\u0332\u0332\u0332';
-            const macron4 = '\u035F\u035F\u035F\u035F';
-            const macron5 = '\u035F\u035F\u035F\u035F\u035F';
 
-            const arr = text.split('')
+            const arr = text.split('');
 
             const decide = (char, i) => {
                 if (i + 1 >= arr.length) {
-                    if (char.match(/[a-z]/i) && char != 'g' && char != 'j') {
-                        return char + lowline1;
-                    }
-                    return char;
-                }
-                if ('₀₁₂₃₄₅₆₇₈₉'.includes(char)) {
-                    return char;
-                }
-                if ('₀₁₂₃₄₅₆₇₈₉'.includes(arr[i + 1])) {
-                    if ('jg'.includes(char)) {
+                    if ('₀₁₂₃₄₅₆₇₈₉'.includes(char)) {
                         return char;
                     }
-                    if (char.match(/[a-z]/i)) {
-                        return char + zero + lowline1;
-                    } else {
-                        return char;
-                    }
+                    return char + hair + macron1;
                 }
-                if (char == '‥') {
-                    return zero + macron5 + char + macron1;
-                }
-                if (char.match(/[A-Zwm]/) || char == '‥') {
-                    return char + zero + lowline1 + macron5;
-                }
-                return char + zero + macron3;
+                return char + hair + macron1;
             }
 
-            return zero + lowline1 + text.split('').map(decide).join('');
-            return zero + macron3 + text.split('').map((char, i) => i + 1 < len ? char + zero + macron3 : char).join('');
+            return hair + macron1 + text.split('').map(decide).join('');
         }
 
         function renderUnderlineLinux(text) {

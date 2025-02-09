@@ -77,18 +77,22 @@ function renderUnderlineWindowsAlt(text) {
 }
 
 function renderUnderlineWindows(text) {
-    const zero = '\u200C';  // U+200C ZERO WIDTH NON-JOINER
-    const lowline1 = '\u0332';
+    const hair = '\u200A';
     const macron1 = '\u035F';
-    const lowline2 = '\u0332\u0332';
-    const macron2 = '\u035F\u035F';
-    const lowline3 = '\u0332\u0332\u0332';
-    const macron3 = '\u035F\u035F\u035F';
-    const lowline4 = '\u0332\u0332\u0332\u0332';
-    const macron4 = '\u035F\u035F\u035F\u035F';
-    const macron5 = '\u035F\u035F\u035F\u035F\u035F';
-    const len = text.split('').length;
-    return zero + lowline1 + text.split('').map((char, i) => i + 1 < len ? char + zero + lowline1 : char).join('');
+
+    const arr = text.split('');
+
+    const decide = (char, i) => {
+        if (i + 1 >= arr.length) {
+            if ('₀₁₂₃₄₅₆₇₈₉'.includes(char)) {
+                return char;
+            }
+            return char + hair + macron1;
+        }
+        return char + hair + macron1;
+    }
+
+    return hair + macron1 + text.split('').map(decide).join('');
 }
 
 function renderUnderlineLinux(text) {
