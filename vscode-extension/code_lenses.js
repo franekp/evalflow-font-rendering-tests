@@ -2,6 +2,7 @@ const { platform } = require('node:process');
 
 const codeLensesByPlatform = {
     linux: [
+        '🡰prev |【3】| next🡲',
         'Start Evalflow (ctrl+alt+enter)',
 
         'Context: \u2800⦓⦔ Symbolic exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
@@ -15,6 +16,7 @@ const codeLensesByPlatform = {
         'Exec root: \u2800✎⦖⦕ Edited AI-generated | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
     ],
     darwin: [
+        '🡰prev |【3】| next🡲',
         'Start Evalflow (cmd+opt+enter)',
 
         'Context:\u2060\u3000❨•❩ Symbolic exec root | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
@@ -28,6 +30,7 @@ const codeLensesByPlatform = {
         'Exec root:\u2060\u3000✎ ❩✧❨ Edited AI-generated | Context:\u2060\u3000↘ called from file.py:35 | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
     ],
     win32: [
+        '🡰prev |【3】| next🡲',
         'Start Evalflow (ctrl+alt+enter)',
 
         'Context: \u2800⦓⦔ Symbolic exec root | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',

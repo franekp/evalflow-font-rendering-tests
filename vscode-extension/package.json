@@ -16,7 +16,7 @@
   "main": "./extension.js",
   "contributes": {
     "commands": [{
-      "command": "evalflowfontrenderingtests.helloWorld",
+      "command": "evalflowfontrenderingtests.hello",
       "title": "Hello World"
     }]
   },

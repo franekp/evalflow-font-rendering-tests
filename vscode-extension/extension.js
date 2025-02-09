@@ -15,10 +15,24 @@ class EvalflowContextCodeLensProvider {
             const inputText = codeLenses[i] || "";
             const links = inputText.split('|');
             for (const [index, link] of links.entries()) {
-                let spaces = '\u0020\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u202F\u2060\u3000';
+                // let spaces = '\u0020\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u202F\u2060\u3000';
+                let title;
+                if (i == 0 ) {
+                    if (index == 0) {
+                        title = link.trim() + spaceAfter;
+                    }
+                    if (index == 1) {
+                        title = link.trim();
+                    }
+                    if (index == 2) {
+                        title = spaceBefore + link.trim();
+                    }
+                } else {
+                    title = (index != 0 ? spaceBefore : '') + link.trim() + spaceAfter;
+                }
                 const lens = new vscode.CodeLens(range, {
-                    title: (index != 0 ? spaceBefore : '') + link.trim() + spaceAfter,
-                    command: "evalflowfontrenderingtests.helloWorld",
+                    title, command: "evalflowfontrenderingtests.hello",
+                    arguments: [{name: link.trim()}],
                     tooltip: '<<<  ' + link.trim() + '  >>>',
                 });
                 res.push(lens);
@@ -80,7 +94,7 @@ function initHover(context) {
         if (k != 'codelenses') {
             const md = chunkArray(testData[k], 10).map(
                 chunk => chunk.map(x =>
-                    `&nbsp;&nbsp; <a href="#"><span style="color:#e2bd6d;"> ${ escapeForMarkdown(effects.renderUnderline(x)) } </span></a>`
+                    `&nbsp;&nbsp; <a href="command:evalflowfontrenderingtests.hello?${encodeURI(JSON.stringify({name: x}))}"><span style="color:#e2bd6d;"> ${ escapeForMarkdown(effects.renderUnderline(x)) } </span></a>`
                 ).join('')
             ).join('<br />\n');
             hovers.push(md);
@@ -116,14 +130,14 @@ function activate(context) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    const disposable = vscode.commands.registerCommand('evalflowfontrenderingtests.helloWorld', function () {
+    const disposable = vscode.commands.registerCommand('evalflowfontrenderingtests.hello', function (args) {
         // The code you place here will be executed every time your command is executed
 
         // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World from EvalflowFontRenderingTests!');
+        vscode.window.showInformationMessage(`Hello "${args.name}"!`);
     });
 
-	context.subscriptions.push(disposable);
+    context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated
