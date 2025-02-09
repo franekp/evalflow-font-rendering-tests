@@ -30,15 +30,15 @@ const codeLensesByPlatform = {
     win32: [
         'Start Evalflow (ctrl+alt+enter)',
 
-        'Context: ⦓⦔ Symbolic exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
-        'Context: ⦓⦔🖋 Custom exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
-        'Context: ⦖⦕ AI-generated exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
-        'Context: ⦖⦕🖋 Edited AI-generated exec root | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
+        'Context: \u2800⦓⦔ Symbolic exec root | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
+        'Context: \u2800✎⦓⦔ Custom exec root | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
+        'Context: \u2800⦖⦕ AI-generated exec root | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
+        'Context: \u2800✎⦖⦕ Edited AI-generated exec root | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
 
-        'Exec root: ⦓⦔ Symbolic | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
-        'Exec root: ⦓⦔🖋 Custom | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
-        'Exec root: ⦖⦕ AI-generated | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
-        'Exec root: ⦖⦕🖋 Edited AI-generated | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
+        'Exec root: \u2800⦓⦔ Symbolic | Context: 🡮 called from file.py:35 | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
+        'Exec root: \u2800✎⦓⦔ Custom | Context: 🡮 called from file.py:35 | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
+        'Exec root: \u2800⦖⦕ AI-generated | Context: 🡮 called from file.py:35 | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
+        'Exec root: \u2800✎⦖⦕ Edited AI-generated | Context: 🡮 called from file.py:35 | ⮁ Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
     ],
 };
 const spaceBeforeByPlatform = {linux: '\u2800', darwin: '\u2060\u3000', win32: '\u2800'};
