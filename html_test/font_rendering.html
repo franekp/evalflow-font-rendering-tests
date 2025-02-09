@@ -36,7 +36,8 @@
   <body>
     <div id="select-font">
         <button onclick="setFont('SF Pro')">San Francisco Pro</button>
-        <button onclick="setFont('Segoe UI Variable')">Segoe UI</button>
+        <button onclick="setFont('Segoe UI')">Segoe UI</button>
+        <button onclick="setFont('SegoeWPC')">Segoe WPC</button>
         <button onclick="setFont('Ubuntu')">Ubuntu</button>
     </div>
     <div id="main">
@@ -198,7 +199,8 @@
         function renderUnderline(fontName, text) {
             const renderers = {
                 'SF Pro': renderUnderlineMacOS,
-                'Segoe UI Variable': renderUnderlineWindows,
+                'Segoe UI': renderUnderlineWindows,
+                'Segoe WPC': renderUnderlineWindows,
                 'Ubuntu': renderUnderlineLinux,
             };
             return renderers[fontName](text);
