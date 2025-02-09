@@ -15,17 +15,17 @@ const codeLensesByPlatform = {
         'Exec root: ⦖⦕🖋 Edited AI-generated | Context: ⮯ called from file.py:35 | 🗘 Change ctx (ctrl+alt+c) | ⦕⦖ Inspect (ctrl+alt+i) | ⛝ (ctrl+esc)',
     ],
     darwin: [
-        'Start Evalflow (⌘ ⌥ enter)',
+        'Start Evalflow (cmd+opt+enter)',
 
-        'Context: ❨•❩ Symbolic exec root | ⇅ Change ctx (⌘ ⌥ c) | ⸨̶●̶⸩̶ Inspect (⌘ ⌥ i) | ⛝ (⌘ esc)',
-        'Context: ✎ ❨•❩ Custom exec root | ⇅ Change ctx (⌘ ⌥ c) | ⸨̶●̶⸩̶ Inspect (⌘ ⌥ i) | ⛝ (⌘ esc)',
-        'Context: ❩✧❨ AI-generated exec root | ⇅ Change ctx (⌘ ⌥ c) | ⸨̶●̶⸩̶ Inspect (⌘ ⌥ i) | ⛝ (⌘ esc)',
-        'Context: ✎ ❩✧❨ Edited AI-generated exec root | ⇅ Change ctx (⌘ ⌥ c) | ⸨̶●̶⸩̶ Inspect (⌘ ⌥ i) | ⛝ (⌘ esc)',
+        'Context: ❨•❩ Symbolic exec root | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
+        'Context: ✎ ❨•❩ Custom exec root | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
+        'Context: ❩✧❨ AI-generated exec root | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
+        'Context: ✎ ❩✧❨ Edited AI-generated exec root | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
 
-        'Exec root: ❨•❩ Symbolic | Context: ↘ called from file.py:35 | ⇅ Change ctx (⌘ ⌥ c) | ⸨̶●̶⸩̶ Inspect (⌘ ⌥ i) | ⛝ (⌘ esc)',
-        'Exec root: ✎ ❨•❩ Custom | Context: ↘ called from file.py:35 | ⇅ Change ctx (⌘ ⌥ c) | ⸨̶●̶⸩̶ Inspect (⌘ ⌥ i) | ⛝ (⌘ esc)',
-        'Exec root: ❩✧❨ AI-generated | Context: ↘ called from file.py:35 | ⇅ Change ctx (⌘ ⌥ c) | ⸨̶●̶⸩̶ Inspect (⌘ ⌥ i) | ⛝ (⌘ esc)',
-        'Exec root: ✎ ❩✧❨ Edited AI-generated | Context: ↘ called from file.py:35 | ⇅ Change ctx (⌘ ⌥ c) | ⸨̶●̶⸩̶ Inspect (⌘ ⌥ i) | ⛝ (⌘ esc)',
+        'Exec root: ❨•❩ Symbolic | Context: ↘ called from file.py:35 | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
+        'Exec root: ✎ ❨•❩ Custom | Context: ↘ called from file.py:35 | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
+        'Exec root: ❩✧❨ AI-generated | Context: ↘ called from file.py:35 | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
+        'Exec root: ✎ ❩✧❨ Edited AI-generated | Context: ↘ called from file.py:35 | ⇅ Change ctx (cmd+opt+c) | ⸨̶●̶⸩̶ Inspect (cmd+opt+i) | ⛝ (cmd+esc)',
     ],
     win32: [
         'Start Evalflow (ctrl+alt+enter)',
