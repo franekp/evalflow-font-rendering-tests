@@ -13,18 +13,18 @@ function renderUnderlineMacOS(text) {
 
     const decide = (char, i) => {
         if (i + 1 >= len) {
-            if ('⟨‥⟩'.includes(char) || char == '‥') {
+            if ('⟨‥⟩'.includes(char)) {
                 return char + zero + lowline2;
             }
             return char + lowline2;
         }
-        if ('⟨‥⟩'.includes(char) || char == '‥') {
+        if ('⟨‥⟩'.includes(char)) {
             return char + zero + macron3;
         }
         return char + macron3;
     }
 
-    return zero + macron + text.split('').map(decide).join('');
+    return zero + macron3 + text.split('').map(decide).join('');
 }
 
 function renderUnderlineWindows(text) {
