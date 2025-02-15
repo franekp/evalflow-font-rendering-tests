@@ -103,7 +103,8 @@ function initHover(context) {
     vscode.languages.registerHoverProvider('python', {
         _count: 0,
         provideHover(document, position, token) {
-            const md = new vscode.MarkdownString(hovers[this._count % hovers.length]);
+            //const md = new vscode.MarkdownString(hovers[this._count % hovers.length]);
+            const md = new vscode.MarkdownString(`${JSON.stringify(position)} <br />` + objectReprHovercard);
             this._count++;
             md.supportHtml = true;
             md.isTrusted = true;
